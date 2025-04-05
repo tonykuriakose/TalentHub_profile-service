@@ -1,4 +1,4 @@
-import express, { Application } from "express";
+import express, { Application, Request, Response } from "express";
 
 class Server {
   public app: Application;
@@ -7,6 +7,7 @@ class Server {
   constructor() {
     this.app = express();
     this.initialize();
+    this.setupRoutes();
   }
 
   async initialize() {
@@ -15,6 +16,13 @@ class Server {
     } catch (error) {
       console.error("Error during initialization", error);
     }
+  }
+
+  
+  private setupRoutes() {
+    this.app.get("/", (req: Request, res: Response) => {
+      res.status(200).json({ message: "Profile API is working fine!" });
+    });
   }
 
   start(PORT: string | number) {
